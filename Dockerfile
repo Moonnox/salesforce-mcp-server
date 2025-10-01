@@ -24,9 +24,12 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy the compiled application and node_modules from the builder stage
-COPY --from=builder /app/build ./build
+COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
+
+# Expose the port the app runs on
+EXPOSE 8080
 
 # Specify the default command to run when starting the container
 CMD ["npm", "start"]
